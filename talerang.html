@@ -7,7 +7,7 @@
         background-color: black;
         color: gold;
       }
-      <?php
+<?php
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // verify reCAPTCHA response
     $url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -25,14 +25,7 @@
     $result = file_get_contents($url, false, $context);
     $response = json_decode($result, true);
 
-    // process sign-up form if reCAPTCHA response is valid
-    if ($response['success']) {
-      $name = $_POST['name'];
-      $email = $_POST['email'];
-      $password = $_POST['password'];
-
-      // TODO: //
-    } else {
+    if (!$response['success']) {
       // reCAPTCHA response is invalid, show error message
       echo "reCAPTCHA verification failed. Please try again.";
     }
